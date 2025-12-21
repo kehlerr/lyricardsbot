@@ -1,0 +1,17 @@
+[project]
+name = "lyricardsbot"
+version = "0.1.0"
+description = "Telegram bot for creating song lyrics card images."
+readme = "README.md"
+requires-python = ">=3.14.2"
+dependencies = [
+    "aiogram>=3.23.0",
+    "fuzzywuzzy>=0.18.0",
+    "httpx>=0.28.1",
+    "lyricsgenius>=3.7.5",
+    "orjson>=3.11.5",
+    "pillow>=12.0.0",
+    "pydantic>=2.12.5",
+    "python-decouple>=3.8",
+    "python-decouple-stubs>=3.8.0.4",
+]

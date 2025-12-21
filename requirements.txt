@@ -1,0 +1,8 @@
+aiogram
+httpx
+lyricsgenius
+fuzzywuzzy
+orjson
+pillow
+pydantic
+python-decouple
