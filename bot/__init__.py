@@ -1,6 +1,3 @@
-
 from .lyricardsbot import LyricardsBot
 
-__all__ = (
-    "LyricardsBot",
-)
+__all__ = ("LyricardsBot",)

@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  app_base:
+    image: lyricardsbot_app
+    build:
+      context: ../
+      dockerfile: "${DOCKERFILE_PATH}"
+    volumes:
+      - "${APP_CONTAINER_VOLUME_DATA_DIR_PATH}:${DATA_DIR_PATH}"
+      - lyricardsbot-data:/var/lib/telegram-bot-api
+    networks:
+      - lyricardsbot-network
+    env_file:
+      - "${ENV_FILE}"
+
+volumes:
+  lyricardsbot-data:
+    external: true
+
+networks:
+  lyricardsbot-network:
+    external: true
+    driver: bridge

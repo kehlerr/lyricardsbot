@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  telegram-bot-api:
+    image: aiogram/telegram-bot-api:latest
+    container_name: "${LYRICARDSBOT_TG_API_SERVER_CONTAINER_NAME}"
+    environment:
+      TELEGRAM_API_ID: "${LYRICARDSBOT_TG_API_ID}"
+      TELEGRAM_API_HASH: "${LYRICARDSBOT_TG_API_HASH}"
+      TELEGRAM_LOCAL: "true"
+      TELEGRAM_VERBOSITY: 3
+      TELEGRAM_WORK_DIR: "${LYRICARDSBOT_TG_API_SERVER_WORK_DIR}"
+    entrypoint: ['sh', '-c', 'chmod -R g+w "$$TELEGRAM_WORK_DIR" && /docker-entrypoint.sh']
+    volumes:
+      - lyricardsbot-data:${LYRICARDSBOT_TG_API_SERVER_WORK_DIR}
+    networks:
+      lyricardsbot-network:
+        aliases:
+          - "${LYRICARDSBOT_TG_API_SERVER_HOST}"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  lyricardsbot-data:
+    name: lyricardsbot-data
+    external: true
+
+networks:
+  lyricardsbot-network:
+    external: true
+    driver: bridge
