@@ -8,7 +8,9 @@ ROOT_DIR_PATH = Path(__file__).resolve().parent
 
 APP_NAME = config("APP_NAME", default="lyricardsbot", cast=str)
 
-LOGGING_LEVEL = config("LOGGING_LEVEL", default="INFO", cast=str)
+DEBUG = config("DEBUG", default=False, cast=bool)
+
+LOGGING_LEVEL = config("LOGGING_LEVEL", default=DEBUG and "DEBUG" or "INFO", cast=str)
 
 TELEGRAM_BOT_TOKEN = config("TELEGRAM_BOT_TOKEN", cast=str)
 TELEGRAM_BOT_USERNAME = config("TELEGRAM_BOT_USERNAME", cast=str)

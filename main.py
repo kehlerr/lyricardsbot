@@ -1,9 +1,7 @@
 import logging
 
-from aiohttp import web
-
 from bot import LyricardsBot
-from settings import APP_NAME, LOGGING_LEVEL, WEBHOOK_APP_HOST, WEBHOOK_APP_PORT
+from settings import APP_NAME, LOGGING_LEVEL
 
 
 def setup_logger() -> logging.Logger:
@@ -21,8 +19,7 @@ def main() -> None:
 
     bot = LyricardsBot.create()
     bot.setup()
-
-    web.run_app(bot.web_app, host=WEBHOOK_APP_HOST, port=WEBHOOK_APP_PORT)
+    bot.start()
 
 
 if __name__ == "__main__":
