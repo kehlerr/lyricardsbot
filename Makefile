@@ -34,7 +34,7 @@ run:
 	uv run main.py
 
 pretty:
-	black . && isort . && flake8 .
+	isort . && black . && flake8 .
 
 # Docker
 dc_build:

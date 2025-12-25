@@ -6,8 +6,7 @@ from aiogram import Dispatcher, Router
 from aiogram.client.session.aiohttp import AiohttpSession
 from aiogram.client.telegram import TelegramAPIServer
 
-from settings import (APP_NAME, BOT_API_SERVER_URI, TELEGRAM_BOT_TOKEN,
-                      WEBHOOK_ENDPOINT_URL, WEBHOOK_SECRET)
+from settings import APP_NAME, BOT_API_SERVER_URI, TELEGRAM_BOT_TOKEN, WEBHOOK_ENDPOINT_URL, WEBHOOK_SECRET
 
 from .handlers import router
 from .middleware import CheckQueryMiddleware

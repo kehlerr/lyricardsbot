@@ -1,6 +1,5 @@
 from aiogram import Bot, Dispatcher
-from aiogram.webhook.aiohttp_server import (SimpleRequestHandler,
-                                            setup_application)
+from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 from aiohttp.web import Application as AiohttpApp
 
 from settings import WEBHOOK_ENDPOINT, WEBHOOK_SECRET

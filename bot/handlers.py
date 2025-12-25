@@ -8,13 +8,29 @@ from aiogram.filters import Command, CommandStart
 from aiogram.types import BufferedInputFile, Message
 
 import bot.texts as T
-from app import (AppError, CoverDownloadError, CoverType, Handlers,
-                 ImageBuilder, InvalidLyricsQueryError, LyricsFetchError,
-                 LyricsService, SongGeniusRepository, SongNotFoundError,
-                 SongRepository)
-from settings import (APP_NAME, COVERS_DIR_PATH, FONTS_DIR_PATH,
-                      GENIUS_API_TOKEN, LYRICS_DIR_PATH, QUERIES_DIR_PATH,
-                      QUERY_LENGTH_LIMIT, TELEGRAM_BOT_USERNAME)
+from app import (
+    AppError,
+    CoverDownloadError,
+    CoverType,
+    Handlers,
+    ImageBuilder,
+    InvalidLyricsQueryError,
+    LyricsFetchError,
+    LyricsService,
+    SongGeniusRepository,
+    SongNotFoundError,
+    SongRepository,
+)
+from settings import (
+    APP_NAME,
+    COVERS_DIR_PATH,
+    FONTS_DIR_PATH,
+    GENIUS_API_TOKEN,
+    LYRICS_DIR_PATH,
+    QUERIES_DIR_PATH,
+    QUERY_LENGTH_LIMIT,
+    TELEGRAM_BOT_USERNAME,
+)
 
 logger = logging.getLogger(APP_NAME)
 

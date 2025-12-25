@@ -5,8 +5,7 @@ from fuzzywuzzy import fuzz
 
 from settings import APP_NAME
 
-from .exceptions import (InvalidLyricsError, InvalidLyricsQueryError,
-                         NoBestMatchLyricsError)
+from .exceptions import InvalidLyricsError, InvalidLyricsQueryError, NoBestMatchLyricsError
 from .models import LyricsQuery
 
 logger = logging.getLogger(APP_NAME)

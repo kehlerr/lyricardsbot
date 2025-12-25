@@ -1,5 +1,4 @@
-from .exceptions import (AppError, CoverDownloadError, InvalidLyricsQueryError,
-                         LyricsFetchError, SongNotFoundError)
+from .exceptions import AppError, CoverDownloadError, InvalidLyricsQueryError, LyricsFetchError, SongNotFoundError
 from .handlers import Handlers
 from .image_builder import ImageBuilder
 from .lyrics_service import LyricsService

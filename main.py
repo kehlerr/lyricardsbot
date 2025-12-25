@@ -3,8 +3,7 @@ import logging
 from aiohttp import web
 
 from bot import LyricardsBot
-from settings import (APP_NAME, LOGGING_LEVEL, WEBHOOK_APP_HOST,
-                      WEBHOOK_APP_PORT)
+from settings import APP_NAME, LOGGING_LEVEL, WEBHOOK_APP_HOST, WEBHOOK_APP_PORT
 
 
 def setup_logger() -> logging.Logger:
