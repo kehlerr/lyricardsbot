@@ -2,7 +2,7 @@ from .exceptions import AppError, CoverDownloadError, InvalidLyricsQueryError, L
 from .handlers import Handlers
 from .image_builder import ImageBuilder
 from .lyrics_service import LyricsService
-from .models import CoverType
+from .models import CoverType, LyricsQuery
 from .song_genius_repository import SongGeniusRepository
 from .song_repository import SongRepository
 
@@ -15,6 +15,7 @@ __all__ = (
     "InvalidLyricsQueryError",
     "ImageBuilder",
     "LyricsService",
+    "LyricsQuery",
     "SongRepository",
     "SongGeniusRepository",
     "Handlers",

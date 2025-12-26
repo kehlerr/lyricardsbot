@@ -56,6 +56,16 @@ class LyricsQuery(BaseModel):
     lines_before: int | None = Field(default=None, ge=0)
     lines_after: int | None = Field(default=None, ge=0)
 
+    def merge(self, other: Self) -> None:
+        self.lyrics = f"{self.lyrics} {other.lyrics}"
+
+        if other.lines_before and not self.lines_before:
+            self.lines_before = other.lines_before
+
+        if other.lines_after and not self.lines_after:
+            self.lines_after = other.lines_after
+
+
 
 class CoverType(StrEnum):
     SONG = "song"

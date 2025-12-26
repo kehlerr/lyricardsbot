@@ -1,7 +1,9 @@
-from .exceptions import LyricsFetchError, SongNotFoundError
+from settings import QUERY_LENGTH_LIMIT
+
+from .exceptions import LyricsFetchError, SongNotFoundError, InvalidLyricsQueryError, TooLongQueryError
 from .image_builder import ImageBuilder
 from .lyrics_service import LyricsService
-from .models import CoverType
+from .models import CoverType, LyricsQuery
 from .song_repository import SongRepository
 
 
@@ -17,14 +19,27 @@ class Handlers:
         self._lyrics_service = lyrics_service
         self._image_builder = image_builder
 
+    def parse_as_lyrics_query(self, query: str, append_query: str | None) -> LyricsQuery:
+        lyrics_query = self._lyrics_service.parse_lyrics_query(query)
+
+        if append_query:
+            lyrics_query.merge(self._lyrics_service.parse_lyrics_query(append_query))
+
+        query_text  = lyrics_query.lyrics
+        if not query_text:
+            raise InvalidLyricsQueryError
+
+        if len(query_text) > QUERY_LENGTH_LIMIT:
+            raise TooLongQueryError
+
+        return lyrics_query
+
     async def get_lyrics_on_song_cover(
         self,
-        lyrics_query_raw: str,
+        lyrics_query: LyricsQuery,
         cover_type: CoverType,
         cover_bytes: bytes | None = None,
     ) -> bytes:
-
-        lyrics_query = self._lyrics_service.parse_lyrics_query(lyrics_query_raw)
 
         song = await self._song_repo.get_song_by_query(lyrics_query.lyrics)
         if not song:

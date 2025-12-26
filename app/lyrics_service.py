@@ -3,9 +3,9 @@ import re
 
 from fuzzywuzzy import fuzz
 
-from settings import APP_NAME
+from settings import APP_NAME, TELEGRAM_BOT_USERNAME
 
-from .exceptions import InvalidLyricsError, InvalidLyricsQueryError, NoBestMatchLyricsError
+from .exceptions import InvalidLyricsError, NoBestMatchLyricsError
 from .models import LyricsQuery
 
 logger = logging.getLogger(APP_NAME)
@@ -27,16 +27,15 @@ class LyricsService:
     ]
 
     def parse_lyrics_query(self, query: str) -> LyricsQuery:
-        query = query.strip()
-        if not query:
-            raise InvalidLyricsQueryError
+        query = query.replace(TELEGRAM_BOT_USERNAME, "")
+        query = " ".join(query.split())
 
         lines_after: int | None = None
         lines_before: int | None = None
 
         # Паттерн для поиска индикатора в начале строки: +N или -M (N,M = 1-9)
         start_pattern = r"^([+-])(\d)\s*"
-        while True:
+        while query:
             start_match = re.match(start_pattern, query)
             if not start_match:
                 break
@@ -54,7 +53,7 @@ class LyricsService:
 
         # Паттерн для поиска индикатора в конце строки: +N или -M (N,M = 1-9)
         end_pattern = r"\s*([+-])(\d)\s*$"
-        while True:
+        while query:
             end_match = re.search(end_pattern, query)
             if not end_match:
                 break
@@ -71,12 +70,7 @@ class LyricsService:
             # Удаляем индикатор из конца строки
             query = query[: end_match.start()]
 
-        # Убираем лишние пробелы в начале и конце
-        query = query.strip()
-        if not query:
-            raise InvalidLyricsQueryError
-
-        return LyricsQuery(lyrics=query, lines_before=lines_before, lines_after=lines_after)
+        return LyricsQuery(lyrics=query.strip(), lines_before=lines_before, lines_after=lines_after)
 
     def get_best_lines(
         self,
@@ -106,10 +100,13 @@ class LyricsService:
         best_match_lines_idx: list[int] = []
         best_score = None
 
+        query_normalized = query.strip().lower()
+
         for idx, line in enumerate(filtered_lines):
-            ratio_score = fuzz.ratio(query.lower(), line.lower())
-            partial_score = fuzz.partial_ratio(query.lower(), line.lower())
-            token_sort_score = fuzz.token_sort_ratio(query.lower(), line.lower())
+            line_normalized = line.lower()
+            ratio_score = fuzz.ratio(query_normalized, line_normalized)
+            partial_score = fuzz.partial_ratio(query_normalized, line_normalized)
+            token_sort_score = fuzz.token_sort_ratio(query_normalized, line_normalized)
 
             max_score = max(ratio_score, partial_score, token_sort_score)
             if best_score is not None and max_score < best_score:

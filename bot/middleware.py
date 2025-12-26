@@ -24,4 +24,4 @@ class CheckQueryMiddleware(BaseMiddleware):
         logger.debug("Got message text: %s", message_text)
 
         if msg.chat.type == "private" or message_text.startswith("/") or TELEGRAM_BOT_USERNAME in message_text:
-            return await handler(cast(Message, message), data)
+            return await handler(msg, data)

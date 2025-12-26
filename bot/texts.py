@@ -1,3 +1,14 @@
+from app.exceptions import (
+    TooLongQueryError,
+    InvalidLyricsQueryError,
+    CoverDownloadError,
+    InvalidLyricsError,
+    LyricsFetchError,
+    SongNotFoundError,
+    AppError,
+)
+
+
 WELCOME_TEXT = """
 🎵 **Добро пожаловать в LyriCards Bot!**
 
@@ -57,8 +68,12 @@ LYRICS_FETCH_ERROR_TEXT = """
 😔 При получении текста песни произошла ошибка. Попробуйте составить другой запрос.
 """
 
+INVALID_LYRICS_ERROR_TEXT = """
+😔 Не удалось найти нужную строчку в тексте песни. Попробуйте другой запрос.
+"""
+
 SONG_NOT_FOUND_ERROR_TEXT = """
-😔 Песня не найдена по запросу: '{}'. Попробуйте составить другой запрос.
+😔 Песня не найдена. Попробуйте составить другой запрос.
 """
 
 APP_ERROR_TEXT = """
@@ -68,3 +83,17 @@ APP_ERROR_TEXT = """
 DEFAULT_ERROR_TEXT = """
 Произошла неизвестная ошибка...( Попробуйте позже.
 """
+
+_TEXT_BY_EXCEPTION = {
+    InvalidLyricsQueryError: INVALID_LYRICS_QUERY_ERROR_TEXT,
+    TooLongQueryError: TOO_LONG_QUERY_ERROR_TEXT,
+    CoverDownloadError: COVER_DOWNLOAD_ERROR_TEXT,
+    LyricsFetchError: LYRICS_FETCH_ERROR_TEXT,
+    InvalidLyricsError: INVALID_LYRICS_ERROR_TEXT,
+    SongNotFoundError: SONG_NOT_FOUND_ERROR_TEXT,
+    AppError: APP_ERROR_TEXT,
+}
+
+
+def get_app_error_text_by_exception(exc: AppError) -> str:
+    return _TEXT_BY_EXCEPTION.get(type(exc), APP_ERROR_TEXT)

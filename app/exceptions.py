@@ -33,6 +33,10 @@ class InvalidLyricsError(LyricsServiceError):
     error = "Invalid lyrics"
 
 
+class TooLongQueryError(LyricsServiceError):
+    error = "Too long query"
+
+
 class NoBestMatchLyricsError(LyricsServiceError):
     error = "No best match lyrics found"
 
