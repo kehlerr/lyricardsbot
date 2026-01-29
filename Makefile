@@ -53,7 +53,7 @@ deploy: dc_stop dc_rm dc_up
 	@echo "deploy finished"
 
 dc_up:
-	@DOCKER_BUILDKIT=1 docker-compose $(DOCKER_COMPOSE_ARGS) up -d
+	@DOCKER_BUILDKIT=1 docker compose $(DOCKER_COMPOSE_ARGS) up -d
 
 dc_stop:
 	@docker-compose $(DOCKER_COMPOSE_ARGS) stop $(DOCKER_COMPOSE_APP_SERVICES)

@@ -21,7 +21,13 @@ class CheckQueryMiddleware(BaseMiddleware):
         if not message_text:
             return
 
-        logger.debug("Got message text: %s", message_text)
+        bot_mentioned = TELEGRAM_BOT_USERNAME in message_text
+        if bot_mentioned and message_text == TELEGRAM_BOT_USERNAME:
+            return
 
-        if msg.chat.type == "private" or message_text.startswith("/") or TELEGRAM_BOT_USERNAME in message_text:
-            return await handler(msg, data)
+        if msg.chat.type != "private":
+            if not message_text.startswith("/artist") and not bot_mentioned:
+                return
+
+        logger.debug("Got message text: %s", message_text)
+        return await handler(msg, data)
